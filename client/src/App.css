@@ -3,97 +3,64 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, sans-serif;
-  background-color: #eef2f7; /* Soft light-gray background for professionalism */
-  color: #2d3748; /* Dark gray for better readability */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
 }
 
 .app-container {
   width: 100vw;
   min-height: 100vh;
   display: flex;
+  /* justify-content: center; */
   flex-direction: column;
   align-items: center;
 }
 
 /* Navbar styles */
 .navbar {
-  background-color: #1a202c; /* Dark, professional-looking navbar */
-  border-bottom: 2px solid #4a5568; /* Subtle border for separation */
+  background-color: #3498db; /* Blue shade that matches button colors */
+  padding: 10px 20px;
+  padding-right: 50px;
   display: flex;
   justify-content: right;
   align-items: center;
-  padding: 10px 20px;
   color: white;
   width: 100%;
   height: 60px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.navbar a {
-  color: #e2e8f0; /* Light gray text for contrast */
-  text-decoration: none;
-  margin-right: 20px;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.navbar a:hover {
-  color: #63b3ed; /* Bright blue hover effect */
-}
-
-/* Clerk's UserButton styling */
-.clerk-user-button {
-  background-color: transparent;
-  border: none;
-  color: #e2e8f0;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.clerk-user-button:hover {
-  color: #63b3ed; /* Consistent hover effect */
-}
-
-/* Main content area */
 .sign-in-container {
   margin-top: 300px;
 }
 
 .sign-in-container button {
   margin: 10px;
-  background-color: #3182ce; /* Professional blue button */
-  color: #ffffff;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
+}
+
+.navbar a {
+  color: white; /* Ensures links are white */
+  text-decoration: none;
+  margin-right: 20px;
   font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #e0e0e0; /* Light grey for hover effect */
+}
+
+/* Specific styling for Clerk's UserButton if needed */
+.clerk-user-button {
+  background-color: transparent;
+  border: none;
+  color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.sign-in-container button:hover {
-  background-color: #63b3ed; /* Bright blue hover */
-  transform: translateY(-2px); /* Subtle lift on hover */
+.clerk-user-button:hover {
+  color: #e0e0e0; /* Consistency in hover effects */
 }
 
-.sign-in-container button:active {
-  transform: translateY(0); /* Reset when clicked */
-}
-
-/* Hover effects for interactive elements */
+/* Additional styles to ensure text and elements are vertically aligned properly */
 .navbar * {
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 10px;
-  }
-
-  .sign-in-container {
-    margin-top: 200px; /* Adjust margin for smaller screens */
-  }
 }

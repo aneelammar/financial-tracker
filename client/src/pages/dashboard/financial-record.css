@@ -1,3 +1,6 @@
+/*CSS file styles the financial records dashboard. 
+It defines the layout and appearance of key elements such as headers, buttons, input fields, and the table displaying financial records. */
+
 /* Centered container for the app */
 .dashboard-container {
     width: 80%;

@@ -1,33 +1,41 @@
+{/* This file handles user authentication for the Finance Tracker application. 
+  It uses the @clerk/clerk-react library to provide authentication features such as signing in and signing up.  */}
+
 import { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useFinancialRecords } from "../../contexts/financial-record-context";
 
+// Component for adding a new financial record
 export const FinancialRecordForm = () => {
   // State variables to manage input fields
   const [description, setDescription] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<string>("");
-  const {addRecord} = useFinancialRecords();
+
+  // Access function to add records from context
+  const { addRecord } = useFinancialRecords();
+
   // Access current user details
   const { user } = useUser();
 
-  // Handles form submission
+  // Handles form submission and record creation
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form behavior
 
+    // Create a new financial record
     const newRecord = {
-      userId: user?.id ?? "", // Associate record with the current user
-      date: new Date(), // Add timestamp
-      description: description,
-      amount: parseFloat(amount), // Convert amount to a number
-      category: category,
-      paymentMethod: paymentMethod,
+      userId: user?.id ?? "",
+      date: new Date(), 
+      description,
+      amount: parseFloat(amount), 
+      category,
+      paymentMethod,
     };
 
-    addRecord(newRecord);
+    addRecord(newRecord); // Add the record to the context
 
-    // Reset form fields
+    // Reset form fields for the next input
     setDescription("");
     setAmount("");
     setCategory("");
@@ -37,7 +45,7 @@ export const FinancialRecordForm = () => {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-        {/* Description Input */}
+        {/* Input for transaction description */}
         <div className="form-field">
           <label>Description:</label>
           <input
@@ -49,7 +57,7 @@ export const FinancialRecordForm = () => {
           />
         </div>
 
-        {/* Amount Input */}
+        {/* Input for transaction amount */}
         <div className="form-field">
           <label>Amount:</label>
           <input
@@ -61,7 +69,7 @@ export const FinancialRecordForm = () => {
           />
         </div>
 
-        {/* Category Dropdown */}
+        {/* Dropdown for selecting a category */}
         <div className="form-field">
           <label>Category:</label>
           <select
@@ -80,7 +88,7 @@ export const FinancialRecordForm = () => {
           </select>
         </div>
 
-        {/* Payment Method Dropdown */}
+        {/* Dropdown for selecting a payment method */}
         <div className="form-field">
           <label>Payment Method:</label>
           <select
@@ -96,7 +104,7 @@ export const FinancialRecordForm = () => {
           </select>
         </div>
 
-        {/* Submit Button */}
+        {/* Submit button to add the record */}
         <button type="submit" className="button">
           Add Record
         </button>

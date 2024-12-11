@@ -1,6 +1,10 @@
+{/*This file sets up a React Context to manage the state and operations for financial records.
+It enables centralized management of financial records,
+such as fetching, adding, updating, and deleting, with functions that interact with a backend API. */}
 import { useUser } from "@clerk/clerk-react";
 import { createContext, useContext, useEffect, useState } from "react";
 
+// Defines the structure of a financial record
 export interface FinancialRecord {
   _id?: string;
   userId: string;
@@ -11,6 +15,7 @@ export interface FinancialRecord {
   paymentMethod: string;
 }
 
+// Context for managing financial records and related actions
 interface FinancialRecordsContextType {
   records: FinancialRecord[];
   addRecord: (record: FinancialRecord) => void;
@@ -18,10 +23,12 @@ interface FinancialRecordsContextType {
   deleteRecord: (id: string) => void;
 }
 
+// Creates the context for financial records
 export const FinancialRecordsContext = createContext<
   FinancialRecordsContextType | undefined
 >(undefined);
 
+// Provides context for financial records to child components
 export const FinancialRecordsProvider = ({
   children,
 }: {
@@ -30,8 +37,10 @@ export const FinancialRecordsProvider = ({
   const [records, setRecords] = useState<FinancialRecord[]>([]);
   const { user } = useUser();
 
+  // Fetches financial records for the logged-in user
   const fetchRecords = async () => {
     if (!user) return;
+
     const response = await fetch(
       `http://localhost:3001/financial-records/getAllByUserID/${user.id}`
     );
@@ -47,6 +56,7 @@ export const FinancialRecordsProvider = ({
     fetchRecords();
   }, [user]);
 
+  // Adds a new financial record
   const addRecord = async (record: FinancialRecord) => {
     const response = await fetch("http://localhost:3001/financial-records", {
       method: "POST",
@@ -61,9 +71,12 @@ export const FinancialRecordsProvider = ({
         const newRecord = await response.json();
         setRecords((prev) => [...prev, newRecord]);
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error adding record:", err);
+    }
   };
 
+  // Updates an existing financial record by ID
   const updateRecord = async (id: string, newRecord: FinancialRecord) => {
     const response = await fetch(
       `http://localhost:3001/financial-records/${id}`,
@@ -78,20 +91,19 @@ export const FinancialRecordsProvider = ({
 
     try {
       if (response.ok) {
-        const newRecord = await response.json();
+        const updatedRecord = await response.json();
         setRecords((prev) =>
-          prev.map((record) => {
-            if (record._id === id) {
-              return newRecord;
-            } else {
-              return record;
-            }
-          })
+          prev.map((record) =>
+            record._id === id ? updatedRecord : record
+          )
         );
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error updating record:", err);
+    }
   };
 
+  // Deletes a financial record by ID
   const deleteRecord = async (id: string) => {
     const response = await fetch(
       `http://localhost:3001/financial-records/${id}`,
@@ -107,7 +119,9 @@ export const FinancialRecordsProvider = ({
           prev.filter((record) => record._id !== deletedRecord._id)
         );
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error deleting record:", err);
+    }
   };
 
   return (
@@ -119,6 +133,7 @@ export const FinancialRecordsProvider = ({
   );
 };
 
+// Custom hook to access financial records context
 export const useFinancialRecords = () => {
   const context = useContext<FinancialRecordsContextType | undefined>(
     FinancialRecordsContext

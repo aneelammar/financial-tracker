@@ -2,11 +2,9 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,6 +16,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -25,14 +24,18 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  flex-direction: column;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  padding: 0 15px; /* Added padding to avoid content touching edges on smaller screens */
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2.5em; /* Adjusted for better readability on smaller screens */
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 20px; /* Space between the heading and next section */
 }
 
 button {
@@ -45,24 +48,90 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  width: 100%; /* Make buttons take full width on mobile */
+  margin-top: 10px;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Light Mode Customization */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
+  }
+}
+
+/* Adjustments for iPhone (and similar size devices) */
+@media (max-width: 480px) { /* Covers iPhone 6 and smaller devices */
+  body {
+    padding: 10px; /* Reduced padding for smaller screens */
+  }
+
+  h1 {
+    font-size: 2em; /* Slightly smaller title size on small screens */
+    margin-bottom: 15px;
+  }
+
+  button {
+    font-size: 0.9em; /* Slightly smaller button text */
+    padding: 0.5em 1em; /* Adjusted padding for a smaller look */
+  }
+
+  .financial-record-form input,
+  .financial-record-form button {
+    font-size: 0.9em; /* Smaller input and button font sizes */
+    padding: 8px 12px; /* Adjust padding */
+  }
+
+  .financial-record-item {
+    font-size: 14px; /* Smaller text in the list */
+  }
+}
+
+@media (max-width: 375px) { /* Specific adjustments for iPhone 6 */
+  h1 {
+    font-size: 1.8em; /* Reduce the font size further for very small screens */
+    margin-bottom: 10px;
+  }
+
+  button {
+    font-size: 0.85em; /* Further reduce button size */
+    padding: 0.4em 0.8em; /* Reduced padding to fit better */
+  }
+
+  .financial-record-item {
+    font-size: 13px; /* Slightly smaller text in items */
+  }
+}
+
+@media (max-width: 320px) { /* For smaller screens (iPhone SE, etc.) */
+  h1 {
+    font-size: 1.6em; /* Even smaller font size for really small screens */
+    margin-bottom: 10px;
+  }
+
+  button {
+    font-size: 0.8em; /* Even smaller button text */
+    padding: 0.4em 0.8em;
+  }
+
+  .financial-record-item {
+    font-size: 12px; /* Even smaller text for items */
   }
 }
